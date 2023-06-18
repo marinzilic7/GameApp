@@ -35,6 +35,10 @@ public class Category {
     @OneToMany(mappedBy = "category")
     List<Article> articles;
 
+    @OneToMany(mappedBy = "category")
+    private List<Cart> carts;
+
+
     public Category(Long id, String name, String opis, Integer cijena) {
         this.id = id;
         this.name = name;

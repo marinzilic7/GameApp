@@ -22,7 +22,7 @@ public class Cart {
         this.user = user;
     }
 
-    public void setGame(Category category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 }

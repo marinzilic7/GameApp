@@ -39,6 +39,8 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     List<Invoice> invoices;
+    @OneToMany(mappedBy = "user")
+    private List<Cart> carts;
 
     public User(Long id, String firstname, String lastname, String email, String password, String role) {
         this.id = id;

@@ -20,7 +20,9 @@
                 <div style="display:flex; justify-content:space-evenly; margin-top:10px;" >
                     <a data-toggle="tooltip" data-placement="top" title="Briši kategoriju" class="btn btn-sm btn-danger" th:href="@{/category/delete/{id}(id=${category.getId()})}">Izbrisi igru</a>
                     <a data-toggle="tooltip" data-placement="top" title="Uredi kategoriju" class="btn btn-sm btn-warning" th:href="@{/category/edit/{id}(id=${category.getId()})}">Uredi igru</a>
-                    <a data-toggle="tooltip" data-placement="top" title="Uredi kategoriju" class="btn btn-sm btn-success" th:href="@{/category/add_cart/{userId}/{id}(userId=${userId}, id=${category.getId()})}" >Dodaj u košaricu</a>
+                    <a data-toggle="tooltip" data-placement="top" title="Uredi kategoriju" class="btn btn-sm btn-success" th:href="@{/category/add_cart/{userId}/{categoryId}(userId=${userId}, categoryId=${category.getId()})}">Dodaj u košaricu</a>
+
+
 
 
                 </div>
