@@ -13,14 +13,19 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class CartController {
     private final CartService cartService;
-
-    public CartController(CartService cartService) {
+    private final CategoryRepository categoryRepository;
+    public CartController(CartService cartService,CategoryRepository categoryRepository) {
         this.cartService = cartService;
+        this.categoryRepository = categoryRepository;
     }
 
     @GetMapping("/category/add_cart/{userId}/{categoryId}")
     public String addToCart(@PathVariable Long userId, @PathVariable Long categoryId) {
-        cartService.dodajIgruUKosaricu(userId, categoryId);
+        Category category = categoryRepository.findById(categoryId).orElse(null);
+        String Name = category.getName();
+        String Body = category.getOpis();
+        Integer Cijena = category.getCijena();
+        cartService.dodajIgruUKosaricu(userId, categoryId,Name,Body,Cijena);
         return "redirect:/categories";
     }
 }

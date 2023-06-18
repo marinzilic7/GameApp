@@ -21,7 +21,7 @@ public class CartService {
         this.categoryRepository = categoryRepository;
     }
 
-    public void dodajIgruUKosaricu(Long userId, Long categoryId) {
+    public void dodajIgruUKosaricu(Long userId, Long categoryId, String gameName, String body, Integer price) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("Korisnik nije pronađen"));
 
@@ -31,6 +31,9 @@ public class CartService {
         Cart cart = new Cart();
         cart.setUser(user);
         cart.setCategory(category);
+        cart.setGameName(gameName);
+        cart.setBody(body);
+        cart.setPrice(price);
 
         // Dodatne operacije
 
