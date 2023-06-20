@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ba.sum.fpmoz.restoran.model.Cart;
 import ba.sum.fpmoz.restoran.model.UserDetails;
+import org.thymeleaf.model.IModel;
 
 
 import java.security.Principal;
@@ -38,16 +39,36 @@ public class CartController {
 
 
     }
-
+    public boolean postojiIgraUKosarici(Long categoryId) {
+        return cartRepository.findByCategoryId(categoryId) != null;
+    }
     @GetMapping("/category/add_cart/{userId}/{categoryId}")
-    public String addToCart(@PathVariable Long userId, @PathVariable Long categoryId) {
-        Category category = categoryRepository.findById(categoryId).orElse(null);
-        String Name = category.getName();
-        String Body = category.getOpis();
-        String Cijena = category.getCijena();
-        cartService.dodajIgruUKosaricu(userId, categoryId,Name,Body,Cijena);
+    public String addToCart(@PathVariable Long userId, @PathVariable Long categoryId,Model model) {
+//        Category category = categoryRepository.findById(categoryId).orElse(null);
+//        String Name = category.getName();
+//        String Body = category.getOpis();
+//        String Cijena = category.getCijena();
+////        cartService.dodajIgruUKosaricu(userId, categoryId,Name,Body,Cijena);
+////        return "redirect:/categories";
+//        return "redirect:/categories";
+
+        if (postojiIgraUKosarici(categoryId)) {
+//            model.addAttribute("porukaa", "Igra već postoji u košarici. Ne može se dodati duplikat.");
+            model.addAttribute("poruka", "Igra već postoji u košarici. Ne može se dodati duplikat.");;
+
+        } else {
+            Category category = categoryRepository.findById(categoryId).orElse(null);
+            String Name = category.getName();
+            String Body = category.getOpis();
+            String Cijena = category.getCijena();
+            cartService.dodajIgruUKosaricu(userId, categoryId, Name, Body, Cijena);
+            System.out.println("Igra je uspješno dodana u košaricu.");
+            model.addAttribute("igraDodana", false);
+        }
         return "redirect:/categories";
     }
+
+
 
 //    @GetMapping("/cart")
 //    public String getCartPage(Model model) {
@@ -66,14 +87,22 @@ public class CartController {
         Long userId = userDetails.getUser().getId();
 
         List<Cart> carts = cartService.getAllCartsByUserId(userId);
-//        int cartCount = carts.size();
+//
         for (Cart cart : carts) {
             System.out.println("Cart ID: " + cart.getGameName());
             // Ispis ostalih atributa kartice
         }
-//        model.addAttribute("cartCount", cartCount);
+//
         model.addAttribute("carts", carts);
         model.addAttribute("user", user);
+        int cartCount = carts.size();
+
+        if(carts.size() > 0){
+            model.addAttribute("cartCount", cartCount);
+            model.addAttribute("prikazi", true);
+        }else{
+            model.addAttribute("prikazi", false);
+        }
         return "cart";
     }
 
@@ -81,7 +110,7 @@ public class CartController {
     public String deleteCart(@PathVariable("id") Long id, Model model) {
         Cart cart = cartRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Pogrešan ID"));
         cartRepository.delete(cart);
-        return "redirect:/categories";
+        return "redirect:/cart";
     }
 
 }

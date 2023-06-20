@@ -53,6 +53,9 @@ public class CategoryController {
 
         if(carts.size() > 0){
             model.addAttribute("cartCount", cartCount);
+            model.addAttribute("prikazi", true);
+        }else{
+            model.addAttribute("prikazi", false);
         }
 
         return "categories";
