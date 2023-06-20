@@ -55,12 +55,19 @@ public class CartController {
     @GetMapping("/cart")
     public String showCart(Model model, Principal principal) {
         String email = principal.getName(); // Email trenutno prijavljenog korisnika
-        System.out.println("Vrijednost email-a: " + email);
+
 
         // Dohvati UserDetails korisnika preko userDetailsService
         UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+        Long userId = userDetails.getUser().getId();
 
-        // Ostatak koda...
+        List<Cart> carts = cartService.getAllCartsByUserId(userId);
+
+        for (Cart cart : carts) {
+            System.out.println("Cart ID: " + cart.getGameName());
+            // Ispis ostalih atributa kartice
+        }
+        model.addAttribute("carts", carts);
 
         return "cart";
     }

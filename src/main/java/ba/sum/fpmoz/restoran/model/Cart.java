@@ -46,9 +46,16 @@ public class Cart {
         this.id = id;
     }
 
+
+
     public void setUser(User user) {
         this.user = user;
     }
+
+    public User getUser() {
+        return user;
+    }
+
     public Category getCategory() {
         return category;
     }
@@ -59,12 +66,24 @@ public class Cart {
         this.gameName = gameName;
     }
 
+    public String getGameName() {
+        return gameName;
+    }
+
     public void setBody(String body) {
         this.body = body;
     }
 
+    public String getBody() {
+        return body;
+    }
+
     public void setPrice(String price) {
         this.price= price;
+    }
+
+    public String getPrice() {
+        return price;
     }
 
     public List<Cart> getCarts() {
