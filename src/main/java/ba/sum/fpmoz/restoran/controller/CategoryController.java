@@ -17,15 +17,20 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import ba.sum.fpmoz.restoran.services.CartService;
+
 import java.security.Principal;
+import java.util.List;
 
 
 @Controller
 public class CategoryController {
     @Autowired
     CategoryRepository categoryRepo;
-
-
+    @Autowired
+    CartRepository cartRepository;
+    @Autowired
+    CartService cartService;
 
 
 
@@ -43,6 +48,12 @@ public class CategoryController {
         model.addAttribute("categories", categoryRepo.findAll());
         model.addAttribute("added", false);
         model.addAttribute("activeLink", "Kategorije");
+        List<Cart> carts = cartService.getAllCartsByUserId(userId);
+        int cartCount = carts.size();
+
+        if(carts.size() > 0){
+            model.addAttribute("cartCount", cartCount);
+        }
 
         return "categories";
     }

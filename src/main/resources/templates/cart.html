@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}" lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <title>Prikaz svih kategorija</title>
+</head>
+<body layout:fragment="content">
+
+<div class="row">
+    <div class="col d-flex justify-content-between align-items-center">
+        <h1>Sve igre</h1>
+    </div>
+</div>
+<div style="display:flex;">
+    <div class="card" th:each="cart : ${carts}" style="width: 18rem; padding:30px; margin-left:20px; margin-top:10px; width:30%;">
+        <ul class="list-group list-group-flush">
+            <!--                <li class="list-group-item" th:text="${category.getId()}"></li>-->
+            <li class="list-group-item" ><h3 th:text="${cart.gameName }"></h3></li>
+            <li class="list-group-item" th:text="${cart.body}"></li>
+            <li class="list-group-item" th:text="${cart.price}"></li>
+            <div style="display:flex; justify-content:space-evenly; margin-top:10px;" >
+                <a data-toggle="tooltip" data-placement="top" title="Izbriši iz košarice" class="btn btn-sm btn-danger" th:href="@{/cart/delete/{id}(id=${cart.getId()})}">Ukloni</a>
+            </div>
+        </ul>
+    </div>
+</div>
+
+
+
+
+</div>
+
+</body>
+</html>

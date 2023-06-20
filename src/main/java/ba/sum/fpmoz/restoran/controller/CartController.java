@@ -7,6 +7,8 @@ import ba.sum.fpmoz.restoran.repositories.CategoryRepository;
 import ba.sum.fpmoz.restoran.repositories.UserRepository;
 import ba.sum.fpmoz.restoran.services.CartService;
 import ba.sum.fpmoz.restoran.services.UserDetailsService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,8 +24,9 @@ import java.util.List;
 public class CartController {
     private final CartService cartService;
     private final CategoryRepository categoryRepository;
-    private final UserRepository userRepository;
     private final CartRepository cartRepository;
+    private final UserRepository userRepository;
+
     private final UserDetailsService userDetailsService;
 
     public CartController(CartService cartService,CategoryRepository categoryRepository,UserRepository userRepository,CartRepository cartRepository,UserDetailsService userDetailsService ) {
@@ -32,6 +35,7 @@ public class CartController {
         this.userRepository = userRepository;
         this.cartRepository = cartRepository;
         this.userDetailsService = userDetailsService;
+
 
     }
 
@@ -55,24 +59,30 @@ public class CartController {
     @GetMapping("/cart")
     public String showCart(Model model, Principal principal) {
         String email = principal.getName(); // Email trenutno prijavljenog korisnika
-
-
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails user = (UserDetails) auth.getPrincipal();
         // Dohvati UserDetails korisnika preko userDetailsService
         UserDetails userDetails = userDetailsService.loadUserByUsername(email);
         Long userId = userDetails.getUser().getId();
 
         List<Cart> carts = cartService.getAllCartsByUserId(userId);
-
+//        int cartCount = carts.size();
         for (Cart cart : carts) {
             System.out.println("Cart ID: " + cart.getGameName());
             // Ispis ostalih atributa kartice
         }
+//        model.addAttribute("cartCount", cartCount);
         model.addAttribute("carts", carts);
-
+        model.addAttribute("user", user);
         return "cart";
     }
 
-
+    @GetMapping("/cart/delete/{id}")
+    public String deleteCart(@PathVariable("id") Long id, Model model) {
+        Cart cart = cartRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Pogrešan ID"));
+        cartRepository.delete(cart);
+        return "redirect:/categories";
+    }
 
 }
 

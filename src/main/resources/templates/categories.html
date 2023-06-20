@@ -13,8 +13,8 @@
     <div style="display:flex;">
         <div class="card" th:each="category: ${categories}" style="width: 18rem; padding:30px; margin-left:20px; margin-top:10px; width:30%;">
             <ul class="list-group list-group-flush">
-                <li class="list-group-item" th:text="${category.getId()}"></li>
-                <li class="list-group-item" th:text="${category.getName()}"></li>
+<!--                <li class="list-group-item" th:text="${category.getId()}"></li>-->
+                <li class="list-group-item" ><h3 th:text="${category.getName()}"></h3></li>
                 <li class="list-group-item" th:text="${category.getOpis()}"></li>
                 <li class="list-group-item" th:text="${category.getCijena()}"></li>
                 <div style="display:flex; justify-content:space-evenly; margin-top:10px;" >
