@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}" lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <title>Prikaz svih kategorija</title>
+</head>
+<body layout:fragment="content">
+
+
+<!-- cart.html -->
+
+<!-- Ovdje možete prikazati ostale HTML elemente i zaglavlje -->
+
+<!-- Ispis svih kartica -->
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Naziv igre</th>
+        <th>Opis</th>
+        <th>Cijena</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="cart : ${carts}">
+
+        <td th:text="${cart.gameName }"></td>
+        <td th:text="${cart.body}"></td>
+        <td th:text="${cart.price}"></td>
+
+    </tr>
+
+    </tbody>
+</table>
+
+<!-- Ovdje možete prikazati ostale HTML elemente i podnožje -->
+
+
+</div>
+
+</body>
+</html>
