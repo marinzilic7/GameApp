@@ -29,9 +29,10 @@
             </ul>
         </div>
     </div>
-    <div>
-        <p th:text="${poruka}"></p>
+    <div th:if="${igraDodana}">
+        <p style="position:absolute; right:0; top:80px; margin-right:30px; width:10%; " class="alert alert-warning"  th:text="${poruka}">aaa</p>
     </div>
+
 
 
     <!--    <table class="table table-striped table-bordered">-->

@@ -14,7 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ba.sum.fpmoz.restoran.model.Cart;
 import ba.sum.fpmoz.restoran.model.UserDetails;
-import org.thymeleaf.model.IModel;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 
 import java.security.Principal;
@@ -43,7 +44,7 @@ public class CartController {
         return cartRepository.findByCategoryId(categoryId) != null;
     }
     @GetMapping("/category/add_cart/{userId}/{categoryId}")
-    public String addToCart(@PathVariable Long userId, @PathVariable Long categoryId,Model model) {
+    public String addToCart(@PathVariable Long userId, @PathVariable Long categoryId,RedirectAttributes redirectAttributes) {
 //        Category category = categoryRepository.findById(categoryId).orElse(null);
 //        String Name = category.getName();
 //        String Body = category.getOpis();
@@ -53,8 +54,8 @@ public class CartController {
 //        return "redirect:/categories";
 
         if (postojiIgraUKosarici(categoryId)) {
-//            model.addAttribute("porukaa", "Igra već postoji u košarici. Ne može se dodati duplikat.");
-            model.addAttribute("poruka", "Igra već postoji u košarici. Ne može se dodati duplikat.");;
+          redirectAttributes.addFlashAttribute("igraDodana", true);
+          redirectAttributes.addFlashAttribute("poruka", "Igra vec dodana");
 
         } else {
             Category category = categoryRepository.findById(categoryId).orElse(null);
@@ -63,7 +64,7 @@ public class CartController {
             String Cijena = category.getCijena();
             cartService.dodajIgruUKosaricu(userId, categoryId, Name, Body, Cijena);
             System.out.println("Igra je uspješno dodana u košaricu.");
-            model.addAttribute("igraDodana", false);
+
         }
         return "redirect:/categories";
     }
