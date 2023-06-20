@@ -45,13 +45,6 @@ public class CartController {
     }
     @GetMapping("/category/add_cart/{userId}/{categoryId}")
     public String addToCart(@PathVariable Long userId, @PathVariable Long categoryId,RedirectAttributes redirectAttributes) {
-//        Category category = categoryRepository.findById(categoryId).orElse(null);
-//        String Name = category.getName();
-//        String Body = category.getOpis();
-//        String Cijena = category.getCijena();
-////        cartService.dodajIgruUKosaricu(userId, categoryId,Name,Body,Cijena);
-////        return "redirect:/categories";
-//        return "redirect:/categories";
 
         if (postojiIgraUKosarici(categoryId)) {
           redirectAttributes.addFlashAttribute("igraDodana", true);
@@ -64,19 +57,12 @@ public class CartController {
             String Cijena = category.getCijena();
             cartService.dodajIgruUKosaricu(userId, categoryId, Name, Body, Cijena);
             System.out.println("Igra je uspješno dodana u košaricu.");
-
+            redirectAttributes.addFlashAttribute("gameAdd", true);
+            redirectAttributes.addFlashAttribute("dodanaIgra", "Igra dodana u kosaricu");
         }
         return "redirect:/categories";
     }
 
-
-
-//    @GetMapping("/cart")
-//    public String getCartPage(Model model) {
-//        List<Cart> carts = cartService.getCards();
-//        model.addAttribute("cards", carts);
-//        return "cart";
-//    }
 
     @GetMapping("/cart")
     public String showCart(Model model, Principal principal) {

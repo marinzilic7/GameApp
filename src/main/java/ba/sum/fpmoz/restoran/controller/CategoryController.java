@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ba.sum.fpmoz.restoran.services.CartService;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 import java.util.List;
@@ -100,27 +101,21 @@ public class CategoryController {
         return "redirect:/categories";
     }
 
+    public boolean postojiIgra(Long categoryId) {
+        return cartRepository.findByCategoryId(categoryId) != null;
+    }
     @GetMapping("/category/delete/{id}")
-    public String deleteCategory(@PathVariable("id") Long id, Model model) {
-        Category category = categoryRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("Pogrešan ID"));
-        categoryRepo.delete(category);
+    public String deleteCategory(@PathVariable("id") Long id, Model model, RedirectAttributes redirectAttributes) {
+        if (postojiIgra(id)) {
+            redirectAttributes.addFlashAttribute("noDelete", true);
+            redirectAttributes.addFlashAttribute("deleteNo", "Ne mozes izbrisati igru ako je dodana u kosaricu! ");
+
+        }else{
+            Category category = categoryRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("Pogrešan ID"));
+            categoryRepo.delete(category);
+        }
+
         return "redirect:/categories";
     }
 
-//    @PostMapping("/add_cart/add/{id}")
-//    public String AddCart(@PathVariable("id") Long id, Model model,Principal principal) {
-//        Category category = categoryRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("Pogrešan ID"));
-//        User user = userRepository.findByUsername(principal.getName())
-//                .orElseThrow(() -> new IllegalArgumentException("Pogrešno korisničko ime"));
-//        model.addAttribute("category", category);;
-//
-//        Cart cart = new Cart();
-//        cart.setCategory(category);
-//        cart.setUser(user);
-//
-//        // Spremanje objekta Cart u bazu podataka
-//        cartRepo.save(cart);
-//
-//        return "redirect:/categories";
-//    }
 }

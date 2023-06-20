@@ -8,24 +8,20 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <h4>Uređivanje kategorije</h4>
+      <h4>Uređivanje igre</h4>
       <form th:object="${category}" th:action="@{/category/edit/{id}(id=${category.getId()})}" method="POST">
 
-        <label class="col-form-label">Unesite naziv kategorije:</label>
+        <label class="col-form-label">Unesite naziv igre:</label>
         <input class="form-control" th:classappend="${#fields.hasErrors('name') ? 'is-invalid' : ''}" type="text" th:field="*{name}">
         <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="invalid-feedback"></div>
-        <label class="col-form-label">Unesite opis kategorije:</label>
+        <label class="col-form-label">Unesite opis igre:</label>
         <input class="form-control" th:classappend="${#fields.hasErrors('opis') ? 'is-invalid' : ''}" type="text" th:field="*{opis}">
         <div th:if="${#fields.hasErrors('opis')}" th:errors="*{opis}" class="invalid-feedback"></div>
-        <label class="col-form-label">Unesite cijena kategorije:</label>
+        <label class="col-form-label">Unesite cijenu igre:</label>
         <input class="form-control" th:classappend="${#fields.hasErrors('cijena') ? 'is-invalid' : ''}" type="text" th:field="*{cijena}">
         <div th:if="${#fields.hasErrors('cijena')}" th:errors="*{cijena}" class="invalid-feedback"></div>
 
-        <label class="col-form-label">Odaberite nadkategoriju</label>
-        <select class="form-control" th:field="*{parent}">
-          <option value="">Odaberite kategoriju</option>
-          <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
-        </select>
+
 
         <button type="submit" class="btn btn-primary mt-5">Uredi</button>
       </form>
