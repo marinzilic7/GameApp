@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import ba.sum.fpmoz.restoran.repositories.CartRepository;
 import ba.sum.fpmoz.restoran.model.Cart;
 import ba.sum.fpmoz.restoran.repositories.CategoryRepository;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
@@ -21,7 +23,7 @@ public class CartService {
         this.categoryRepository = categoryRepository;
     }
 
-    public void dodajIgruUKosaricu(Long userId, Long categoryId, String gameName, String body, Integer price) {
+    public void dodajIgruUKosaricu(Long userId, Long categoryId, String gameName, String body, String cijena) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("Korisnik nije pronađen"));
 
@@ -33,12 +35,16 @@ public class CartService {
         cart.setCategory(category);
         cart.setGameName(gameName);
         cart.setBody(body);
-        cart.setPrice(price);
+        cart.setPrice(cijena);
 
-        // Dodatne operacije
 
         cartRepository.save(cart);
     }
 
-    // Dodatne metode ako su potrebne
+    public List<Cart> getAllCartsByUserId(Long userId) {
+        return cartRepository.findByUserId(userId);
+    }
+
+
+
 }

@@ -56,6 +56,8 @@ public class UserDetails implements org.springframework.security.core.userdetail
         return user.getFirstname() + " " + user.getLastname();
     }
 
+
+
     public User getUser() {
         return user;
     }
@@ -63,4 +65,6 @@ public class UserDetails implements org.springframework.security.core.userdetail
     public void setUser(User user) {
         this.user = user;
     }
+
+
 }

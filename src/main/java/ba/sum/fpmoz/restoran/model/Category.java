@@ -22,8 +22,8 @@ public class Category {
     String opis;
 
     @Column(nullable = false)
-    @NotNull(message = "Unesite cijenu  igre.")
-    Integer cijena;
+    @NotBlank(message = "Unesite cijenu  igre.")
+    String cijena;
 
     @ManyToOne
     @JoinColumn(name="category_id", nullable = true)
@@ -39,7 +39,7 @@ public class Category {
     private List<Cart> carts;
 
 
-    public Category(Long id, String name, String opis, Integer cijena) {
+    public Category(Long id, String name, String opis, String cijena) {
         this.id = id;
         this.name = name;
         this.opis = opis;
@@ -73,11 +73,11 @@ public class Category {
     public void setOpis(String opis) {
         this.opis = opis;
     }
-    public Integer getCijena() {
+    public String getCijena() {
         return cijena;
     }
 
-    public void setCijena(Integer cijena) {
+    public void setCijena(String cijena) {
         this.cijena = cijena;
     }
 
