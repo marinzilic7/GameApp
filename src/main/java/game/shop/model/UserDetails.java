@@ -1,4 +1,4 @@
-package ba.sum.fpmoz.restoran.model;
+package game.shop.model;
 
 import org.springframework.security.core.GrantedAuthority;
 

@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>ba.sum.fpmoz</groupId>
-    <artifactId>Restoran</artifactId>
+    <artifactId>Game</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Restoran</name>
-    <description>Restoran</description>
+    <name>Game</name>
+    <description>Game</description>
     <properties>
         <java.version>17</java.version>
     </properties>

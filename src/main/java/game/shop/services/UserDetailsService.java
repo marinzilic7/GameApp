@@ -1,8 +1,8 @@
-package ba.sum.fpmoz.restoran.services;
+package game.shop.services;
 
-import ba.sum.fpmoz.restoran.model.User;
-import ba.sum.fpmoz.restoran.model.UserDetails;
-import ba.sum.fpmoz.restoran.repositories.UserRepository;
+import game.shop.model.User;
+import game.shop.model.UserDetails;
+import game.shop.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 

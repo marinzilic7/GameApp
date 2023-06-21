@@ -1,6 +1,6 @@
-package ba.sum.fpmoz.restoran.repositories;
+package game.shop.repositories;
 
-import ba.sum.fpmoz.restoran.model.Game;
+import game.shop.model.Game;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface GameRepository extends JpaRepository <Game, Long> {}

@@ -1,9 +1,10 @@
-package ba.sum.fpmoz.restoran.controller;
-import ba.sum.fpmoz.restoran.model.Cart;
-import ba.sum.fpmoz.restoran.model.Game;
-import ba.sum.fpmoz.restoran.model.UserDetails;
-import ba.sum.fpmoz.restoran.repositories.CartRepository;
-import ba.sum.fpmoz.restoran.repositories.GameRepository;
+package game.shop.controller;
+import game.shop.model.Cart;
+import game.shop.model.Game;
+import game.shop.model.UserDetails;
+import game.shop.repositories.CartRepository;
+import game.shop.repositories.GameRepository;
+import game.shop.services.CartService;
 import jakarta.validation.Valid;
 import org.springframework.security.core.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import ba.sum.fpmoz.restoran.services.CartService;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;

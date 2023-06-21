@@ -1,18 +1,18 @@
-package ba.sum.fpmoz.restoran.controller;
+package game.shop.controller;
 
-import ba.sum.fpmoz.restoran.model.Game;
-import ba.sum.fpmoz.restoran.repositories.CartRepository;
-import ba.sum.fpmoz.restoran.repositories.GameRepository;
-import ba.sum.fpmoz.restoran.repositories.UserRepository;
-import ba.sum.fpmoz.restoran.services.CartService;
-import ba.sum.fpmoz.restoran.services.UserDetailsService;
+import game.shop.model.Game;
+import game.shop.repositories.CartRepository;
+import game.shop.repositories.GameRepository;
+import game.shop.repositories.UserRepository;
+import game.shop.services.CartService;
+import game.shop.services.UserDetailsService;
+import game.shop.model.Cart;
+import game.shop.model.UserDetails;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ba.sum.fpmoz.restoran.model.Cart;
-import ba.sum.fpmoz.restoran.model.UserDetails;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 

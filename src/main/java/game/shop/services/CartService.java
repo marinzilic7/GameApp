@@ -1,12 +1,12 @@
-package ba.sum.fpmoz.restoran.services;
+package game.shop.services;
 
-import ba.sum.fpmoz.restoran.model.Game;
-import ba.sum.fpmoz.restoran.model.User;
-import ba.sum.fpmoz.restoran.repositories.UserRepository;
+import game.shop.model.Game;
+import game.shop.model.User;
+import game.shop.repositories.UserRepository;
+import game.shop.repositories.CartRepository;
 import org.springframework.stereotype.Service;
-import ba.sum.fpmoz.restoran.repositories.CartRepository;
-import ba.sum.fpmoz.restoran.model.Cart;
-import ba.sum.fpmoz.restoran.repositories.GameRepository;
+import game.shop.model.Cart;
+import game.shop.repositories.GameRepository;
 
 import java.util.List;
 

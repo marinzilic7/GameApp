@@ -1,7 +1,6 @@
-package ba.sum.fpmoz.restoran.model;
+package game.shop.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

@@ -1,10 +1,10 @@
-package ba.sum.fpmoz.restoran;
+package game.shop;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class RestoranApplicationTests {
+class GameApplicationTests {
 
     @Test
     void contextLoads() {

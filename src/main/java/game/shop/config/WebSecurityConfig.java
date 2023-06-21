@@ -1,8 +1,8 @@
-package ba.sum.fpmoz.restoran.config;
+package game.shop.config;
 
 import javax.sql.DataSource;
 
-import ba.sum.fpmoz.restoran.services.UserDetailsService;
+import game.shop.services.UserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

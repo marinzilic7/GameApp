@@ -1,9 +1,8 @@
-package ba.sum.fpmoz.restoran.repositories;
+package game.shop.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import ba.sum.fpmoz.restoran.model.Cart;
-import ba.sum.fpmoz.restoran.model.User;
+import game.shop.model.Cart;
 
 import java.util.List;
 
