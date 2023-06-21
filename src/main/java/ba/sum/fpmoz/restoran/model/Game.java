@@ -2,13 +2,12 @@ package ba.sum.fpmoz.restoran.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 
 @Entity
-@Table(name="categories")
-public class Category {
+@Table(name="games")
+public class Game {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -26,27 +25,26 @@ public class Category {
     String cijena;
 
     @ManyToOne
-    @JoinColumn(name="category_id", nullable = true)
-    Category parent;
+    @JoinColumn(name = "game_id", nullable = true)
+    Game parent;
 
     @OneToMany(mappedBy = "parent")
-    List<Category> categories;
+    List<Game> games;
 
-    @OneToMany(mappedBy = "category")
-    List<Article> articles;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "game")
     private List<Cart> carts;
 
 
-    public Category(Long id, String name, String opis, String cijena) {
+    public Game(Long id, String name, String opis, String cijena) {
         this.id = id;
         this.name = name;
         this.opis = opis;
         this.cijena = cijena;
     }
 
-    public Category() {}
+    public Game() {
+    }
 
     public Long getId() {
         return id;
@@ -65,7 +63,6 @@ public class Category {
     }
 
 
-
     public String getOpis() {
         return opis;
     }
@@ -73,6 +70,7 @@ public class Category {
     public void setOpis(String opis) {
         this.opis = opis;
     }
+
     public String getCijena() {
         return cijena;
     }
@@ -82,27 +80,19 @@ public class Category {
     }
 
 
-    public Category getParent() {
+    public Game getParent() {
         return parent;
     }
 
-    public void setParent(Category parent) {
+    public void setParent(Game parent) {
         this.parent = parent;
     }
 
-    public List<Category> getCategories() {
-        return categories;
+    public List<Game> getCategories() {
+        return games;
     }
 
-    public void setCategories(List<Category> categories) {
-        this.categories = categories;
-    }
-
-    public List<Article> getArticles() {
-        return articles;
-    }
-
-    public void setArticles(List<Article> articles) {
-        this.articles = articles;
+    public void setCategories(List<Game> categories) {
+        this.games = categories;
     }
 }

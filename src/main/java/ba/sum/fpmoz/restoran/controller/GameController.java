@@ -1,11 +1,9 @@
 package ba.sum.fpmoz.restoran.controller;
 import ba.sum.fpmoz.restoran.model.Cart;
-import ba.sum.fpmoz.restoran.model.User;
-import ba.sum.fpmoz.restoran.repositories.UserRepository;
-import ba.sum.fpmoz.restoran.model.Category;
+import ba.sum.fpmoz.restoran.model.Game;
 import ba.sum.fpmoz.restoran.model.UserDetails;
 import ba.sum.fpmoz.restoran.repositories.CartRepository;
-import ba.sum.fpmoz.restoran.repositories.CategoryRepository;
+import ba.sum.fpmoz.restoran.repositories.GameRepository;
 import jakarta.validation.Valid;
 import org.springframework.security.core.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +18,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import ba.sum.fpmoz.restoran.services.CartService;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.security.Principal;
 import java.util.List;
 
 
 @Controller
-public class CategoryController {
+public class GameController {
     @Autowired
-    CategoryRepository categoryRepo;
+    GameRepository gameRepository;
     @Autowired
     CartRepository cartRepository;
     @Autowired
@@ -38,17 +35,17 @@ public class CategoryController {
 
 
 
-    @GetMapping("/categories")
-    public String showCategories (Model model,@AuthenticationPrincipal UserDetails userDetails) {
+    @GetMapping("/games")
+    public String showGames (Model model,@AuthenticationPrincipal UserDetails userDetails) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetails user = (UserDetails) auth.getPrincipal();
         Long userId = userDetails.getUserId(); // ili koristite metodu kojom dobavljate ID korisnika
         model.addAttribute("userId", userId);
         model.addAttribute("user", user);
-        model.addAttribute("category", new Category());
-        model.addAttribute("categories", categoryRepo.findAll());
+        model.addAttribute("game", new Game());
+        model.addAttribute("games", gameRepository.findAll());
         model.addAttribute("added", false);
-        model.addAttribute("activeLink", "Kategorije");
+        model.addAttribute("activeLink", "Igre");
         List<Cart> carts = cartService.getAllCartsByUserId(userId);
         int cartCount = carts.size();
 
@@ -59,63 +56,63 @@ public class CategoryController {
             model.addAttribute("prikazi", false);
         }
 
-        return "categories";
+        return "games";
     }
 
-    @PostMapping("/category/add")
-    public String addCategory (@Valid Category category, BindingResult result, Model model) {
+    @PostMapping("/game/add")
+    public String addGame (@Valid Game game, BindingResult result, Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetails user = (UserDetails) auth.getPrincipal();
         model.addAttribute("user", user);
         if (result.hasErrors()) {
-            model.addAttribute("category", category);
-            model.addAttribute("categories", categoryRepo.findAll());
+            model.addAttribute("game", game);
+            model.addAttribute("games", gameRepository.findAll());
             model.addAttribute("added", true);
-            model.addAttribute("activeLink", "Kategorije");
-            return "categories";
+            model.addAttribute("activeLink", "Igre");
+            return "games";
         }
-        categoryRepo.save(category);
-        return "redirect:/categories";
+        gameRepository.save(game);
+        return "redirect:/games";
     }
 
-    @GetMapping("/category/edit/{id}")
+    @GetMapping("/game/edit/{id}")
     public String showEditForm(@PathVariable("id") Long id, Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetails user = (UserDetails) auth.getPrincipal();
         model.addAttribute("user", user);
-        Category category = categoryRepo.findById(id).orElseThrow(() -> new IllegalArgumentException());
-        model.addAttribute("category", category);
-        model.addAttribute("categories", categoryRepo.findAll());
+        Game game = gameRepository.findById(id).orElseThrow(() -> new IllegalArgumentException());
+        model.addAttribute("game", game);
+        model.addAttribute("games", gameRepository.findAll());
         model.addAttribute("activeLink", "Kategorije");
-        return "category_edit";
+        return "game_edit";
     }
 
-    @PostMapping("category/edit/{id}")
-    public String editCategory (@PathVariable("id") Long id, @Valid Category category, BindingResult result, Model model) {
+    @PostMapping("game/edit/{id}")
+    public String editCategory (@PathVariable("id") Long id, @Valid Game game, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            model.addAttribute("category", category);
-            model.addAttribute("activeLink", "Kategorije");
-            return "category_edit";
+            model.addAttribute("game", game);
+            model.addAttribute("activeLink", "Igre");
+            return "game_edit";
         }
-        categoryRepo.save(category);
-        return "redirect:/categories";
+        gameRepository.save(game);
+        return "redirect:/games";
     }
 
-    public boolean postojiIgra(Long categoryId) {
-        return cartRepository.findByCategoryId(categoryId) != null;
+    public boolean postojiIgra(Long gameId) {
+        return cartRepository.findByGameId(gameId) != null;
     }
-    @GetMapping("/category/delete/{id}")
-    public String deleteCategory(@PathVariable("id") Long id, Model model, RedirectAttributes redirectAttributes) {
+    @GetMapping("/game/delete/{id}")
+    public String deleteGame(@PathVariable("id") Long id, Model model, RedirectAttributes redirectAttributes) {
         if (postojiIgra(id)) {
             redirectAttributes.addFlashAttribute("noDelete", true);
             redirectAttributes.addFlashAttribute("deleteNo", "Ne mozes izbrisati igru ako je dodana u kosaricu! ");
 
         }else{
-            Category category = categoryRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("Pogrešan ID"));
-            categoryRepo.delete(category);
+            Game game = gameRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Pogrešan ID"));
+            gameRepository.delete(game);
         }
 
-        return "redirect:/categories";
+        return "redirect:/games";
     }
 
 }

@@ -9,7 +9,7 @@
   <div class="row">
     <div class="col">
       <h4>Uređivanje igre</h4>
-      <form th:object="${category}" th:action="@{/category/edit/{id}(id=${category.getId()})}" method="POST">
+      <form th:object="${game}" th:action="@{/game/edit/{id}(id=${game.getId()})}" method="POST">
 
         <label class="col-form-label">Unesite naziv igre:</label>
         <input class="form-control" th:classappend="${#fields.hasErrors('name') ? 'is-invalid' : ''}" type="text" th:field="*{name}">

@@ -1,9 +1,8 @@
 package ba.sum.fpmoz.restoran.controller;
 
-import ba.sum.fpmoz.restoran.model.Category;
-import ba.sum.fpmoz.restoran.model.User;
+import ba.sum.fpmoz.restoran.model.Game;
 import ba.sum.fpmoz.restoran.repositories.CartRepository;
-import ba.sum.fpmoz.restoran.repositories.CategoryRepository;
+import ba.sum.fpmoz.restoran.repositories.GameRepository;
 import ba.sum.fpmoz.restoran.repositories.UserRepository;
 import ba.sum.fpmoz.restoran.services.CartService;
 import ba.sum.fpmoz.restoran.services.UserDetailsService;
@@ -25,42 +24,42 @@ import java.util.List;
 
 public class CartController {
     private final CartService cartService;
-    private final CategoryRepository categoryRepository;
+    private final GameRepository gameRepository;
     private final CartRepository cartRepository;
     private final UserRepository userRepository;
 
     private final UserDetailsService userDetailsService;
 
-    public CartController(CartService cartService,CategoryRepository categoryRepository,UserRepository userRepository,CartRepository cartRepository,UserDetailsService userDetailsService ) {
+    public CartController(CartService cartService, GameRepository gameRepository, UserRepository userRepository, CartRepository cartRepository, UserDetailsService userDetailsService ) {
         this.cartService = cartService;
-        this.categoryRepository = categoryRepository;
+        this.gameRepository = gameRepository;
         this.userRepository = userRepository;
         this.cartRepository = cartRepository;
         this.userDetailsService = userDetailsService;
 
 
     }
-    public boolean postojiIgraUKosarici(Long categoryId) {
-        return cartRepository.findByCategoryId(categoryId) != null;
+    public boolean postojiIgraUKosarici(Long gameId) {
+        return cartRepository.findByGameId(gameId) != null;
     }
-    @GetMapping("/category/add_cart/{userId}/{categoryId}")
-    public String addToCart(@PathVariable Long userId, @PathVariable Long categoryId,RedirectAttributes redirectAttributes) {
+    @GetMapping("/game/add_cart/{userId}/{gameId}")
+    public String addToCart(@PathVariable Long userId, @PathVariable Long gameId,RedirectAttributes redirectAttributes) {
 
-        if (postojiIgraUKosarici(categoryId)) {
+        if (postojiIgraUKosarici(gameId)) {
           redirectAttributes.addFlashAttribute("igraDodana", true);
           redirectAttributes.addFlashAttribute("poruka", "Igra vec dodana");
 
         } else {
-            Category category = categoryRepository.findById(categoryId).orElse(null);
-            String Name = category.getName();
-            String Body = category.getOpis();
-            String Cijena = category.getCijena();
-            cartService.dodajIgruUKosaricu(userId, categoryId, Name, Body, Cijena);
+            Game game = gameRepository.findById(gameId).orElse(null);
+            String Name = game.getName();
+            String Body = game.getOpis();
+            String Cijena = game.getCijena();
+            cartService.dodajIgruUKosaricu(userId, gameId, Name, Body, Cijena);
             System.out.println("Igra je uspješno dodana u košaricu.");
             redirectAttributes.addFlashAttribute("gameAdd", true);
             redirectAttributes.addFlashAttribute("dodanaIgra", "Igra dodana u kosaricu");
         }
-        return "redirect:/categories";
+        return "redirect:/games";
     }
 
 

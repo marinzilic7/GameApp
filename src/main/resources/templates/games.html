@@ -11,16 +11,15 @@
         </div>
     </div>
     <div style="display:flex;">
-        <div class="card" th:each="category: ${categories}" style="width: 18rem; padding:30px; margin-left:20px; margin-top:10px; width:30%;">
+        <div class="card" th:each="game: ${games}" style="width: 18rem; padding:30px; margin-left:20px; margin-top:10px; width:30%;">
             <ul class="list-group list-group-flush">
-<!--                <li class="list-group-item" th:text="${category.getId()}"></li>-->
-                <li class="list-group-item" ><h3 th:text="${category.getName()}"></h3></li>
-                <li class="list-group-item" th:text="${category.getOpis()}"></li>
-                <li class="list-group-item" th:text="${category.getCijena()}"></li>
+                <li class="list-group-item" ><h3 th:text="${game.getName()}"></h3></li>
+                <li class="list-group-item" th:text="${game.getOpis()}"></li>
+                <li class="list-group-item" th:text="${game.getCijena()}"></li>
                 <div style="display:flex; justify-content:space-evenly; margin-top:10px;" >
-                    <a data-toggle="tooltip" data-placement="top" title="Briši kategoriju" class="btn btn-sm btn-danger" th:href="@{/category/delete/{id}(id=${category.getId()})}">Izbrisi igru</a>
-                    <a data-toggle="tooltip" data-placement="top" title="Uredi kategoriju" class="btn btn-sm btn-warning" th:href="@{/category/edit/{id}(id=${category.getId()})}">Uredi igru</a>
-                    <a data-toggle="tooltip" data-placement="top" title="Uredi kategoriju" class="btn btn-sm btn-success" th:href="@{/category/add_cart/{userId}/{categoryId}(userId=${userId}, categoryId=${category.getId()})}">Dodaj u košaricu</a>
+                    <a data-toggle="tooltip" data-placement="top" title="Briši kategoriju" class="btn btn-sm btn-danger" th:href="@{/game/delete/{id}(id=${game.getId()})}">Izbrisi igru</a>
+                    <a data-toggle="tooltip" data-placement="top" title="Uredi kategoriju" class="btn btn-sm btn-warning" th:href="@{/game/edit/{id}(id=${game.getId()})}">Uredi igru</a>
+                    <a data-toggle="tooltip" data-placement="top" title="Uredi kategoriju" class="btn btn-sm btn-success" th:href="@{/game/add_cart/{userId}/{gameId}(userId=${userId}, gameId=${game.getId()})}">Dodaj u košaricu</a>
 
 
 
@@ -44,12 +43,12 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Nova kategorija</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Nova igra</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form th:object="${category}" th:action="@{/category/add}" method="POST">
+                <form th:object="${game}" th:action="@{/game/add}" method="POST">
                     <div class="modal-body">
-                        <label class="col-form-label">Unesite naziv kategorije:</label>
+                        <label class="col-form-label">Unesite naziv igre:</label>
                         <input class="form-control" th:classappend="${#fields.hasErrors('name') ? 'is-invalid' : ''}" type="text" th:field="*{name}">
                         <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="invalid-feedback"></div>
                         <label class="col-form-label">Unesite opis igre:</label>

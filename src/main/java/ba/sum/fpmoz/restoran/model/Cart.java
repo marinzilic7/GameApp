@@ -13,14 +13,13 @@ public class Cart {
     private Long id;
 
 
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
+    @JoinColumn(name = "game_id")
+    private Game game;
     @Column(name = "gameName")
     private String gameName;
 
@@ -56,11 +55,11 @@ public class Cart {
         return user;
     }
 
-    public Category getCategory() {
-        return category;
+    public Game getGame() {
+        return game;
     }
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setGame(Game game) {
+        this.game = game;
     }
     public void setGameName(String gameName) {
         this.gameName = gameName;

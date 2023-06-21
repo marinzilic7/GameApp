@@ -37,8 +37,8 @@ public class User {
     @Column(nullable = false)
     private String role;
 
-    @OneToMany(mappedBy = "user")
-    List<Invoice> invoices;
+
+
     @OneToMany(mappedBy = "user")
     private List<Cart> carts;
 
@@ -102,13 +102,7 @@ public class User {
         return role;
     }
 
-    public List<Invoice> getInvoices() {
-        return invoices;
-    }
 
-    public void setInvoices(List<Invoice> invoices) {
-        this.invoices = invoices;
-    }
 
     public String getPasswordRepeat() {
         return passwordRepeat;
