@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>ba.sum.fpmoz</groupId>
-    <artifactId>Game</artifactId>
+    <artifactId>Restoran</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Game</name>
-    <description>Game</description>
+    <name>Restoran</name>
+    <description>Restoran</description>
     <properties>
         <java.version>17</java.version>
     </properties>
@@ -76,12 +76,6 @@
         <dependency>
             <groupId>nz.net.ultraq.thymeleaf</groupId>
             <artifactId>thymeleaf-layout-dialect</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>jakarta.servlet</groupId>
-            <artifactId>jakarta.servlet-api</artifactId>
-            <version>5.0.0</version>
-            <scope>provided</scope>
         </dependency>
     </dependencies>
 
